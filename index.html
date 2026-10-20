@@ -469,7 +469,15 @@ document.addEventListener("change",e=>{
  const issues=[];for(const f of e.target.files){if(!allowed.test(f.type))issues.push(`${f.name}: tipe file tidak didukung.`);else if(f.size>10*1024*1024)issues.push(`${f.name}: melebihi 10 MB.`);else if(fileDraft.length>=5)issues.push(`${f.name}: maksimal 5 file per tugas.`);else fileDraft.push({id:crypto.randomUUID(),fileName:f.name,mimeType:f.type,size:f.size,createdAt:new Date().toISOString(),file:f,url:URL.createObjectURL(f),storagePath:null})}
  error.textContent=issues.join(" ");e.target.value="";renderFiles()}
 });
-$("switch-member").onclick=logout;$("logout").onclick=logout;$("login-retry").onclick=initialize;
+
+const switchMemberButton = $("switch-member");
+const logoutButton = $("logout");
+const retryButton = $("login-retry");
+
+if (switchMemberButton) switchMemberButton.onclick = logout;
+if (logoutButton) logoutButton.onclick = logout;
+if (retryButton) retryButton.onclick = initialize;
+
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("modal-root").firstChild)$("modal-root").replaceChildren()});
 const handler={onDataChanged(data){clearTimeout(loadTimer);ready=true;records=data;callbackVersion++;$("login-loading").classList.add("hidden");$("login-retry").classList.add("hidden");if(!member)loginChoices();else if(view!=="task-form"&&!(view==="agenda"&&document.activeElement?.closest("#agenda-form"))&&!$("modal-root").firstChild)render()}};
 // Supabase adapter: shared records in public.circle_records; requires authenticated group membership.
