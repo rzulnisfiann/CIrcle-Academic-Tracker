@@ -67,7 +67,9 @@
        <p id="header-view" class="font-extrabold text-lg"></p>
       </div>
       <div class="flex items-center gap-2 flex-wrap justify-end">
-       <span id="active-member" class="chip border-2 border-[#6452c8]"></span><button id="switch-member" type="button" class="btn soft text-sm">Ganti anggota</button><button id="logout" type="button" class="btn soft text-sm">Keluar</button>
+       <button id="enable-push" type="button" class="btn soft text-sm">
+  🔔 Aktifkan Notifikasi
+</button>
       </div>
      </header>
      <main id="content" class="appmain w-full max-w-[1390px] mx-auto flex-1 px-9 py-8" aria-live="polite"></main>
@@ -85,6 +87,7 @@ const members=[{id:"fian",name:"Fian"},{id:"ifnu",name:"Ifnu"},{id:"faizi",name:
 // Isi dengan Project URL dan publishable key dari Supabase. Jangan gunakan service_role/secret key di browser.
 const SUPABASE_URL="https://teaxqgcdwcmdhlqbrenz.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_pR8eAO7lqGSF8d4wMIn-mA_X2NMzk_D";
+const VAPID_PUBLIC_KEY = "BFUkogo9XWxWJr9bbPEjRC5PhA71JMVQ6fW_0OVhrLR2AEjIiVnVI2aklHBBYZjXyk48qcJ9htH10k0b8woMw4o";
 // Bucket harus private dan nama harus persis sama dengan Supabase Storage.
 const STORAGE_BUCKET="Circle Academic Tracker";
 const supabaseConfigured=SUPABASE_URL.startsWith("https://")&&!SUPABASE_PUBLISHABLE_KEY.startsWith("PASTE_");
