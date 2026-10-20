@@ -608,6 +608,93 @@ $("auth-form").addEventListener("submit",signIn);
 // Pemeriksaan deterministik tanpa menulis atau menghapus data pengguna.
 const checks=validTime("14:30")&&!validTime("24:00")&&dateNumber("2026-10-20")===dateNumber("2026-10-20")&&sortTasks({deadline:"2026-10-20",deadline_time:"09:00"},{deadline:"2026-10-20",deadline_time:"14:30"})<0&&sortTasks({deadline:"2026-10-20",deadline_time:"14:30"},{deadline:"2026-10-20",deadline_time:""})<0&&sortAgenda({agenda_date:"2026-10-20",agenda_time:"09:00"},{agenda_date:"2026-10-20",agenda_time:"14:30"})<0&&!!safeUrl("https://example.com")&&!safeUrl("E-Learning UB");
 if(!checks)notify("Pemeriksaan format tanggal/jam gagal; periksa isian sebelum menyimpan.",true);
+
+async function enablePushNotifications() {
+  try {
+    if (!("serviceWorker" in navigator) ||
+        !("PushManager" in window) ||
+        !("Notification" in window)) {
+      throw new Error("Browser ini belum mendukung push notification.");
+    }
+
+    if (!VAPID_PUBLIC_KEY ||
+        VAPID_PUBLIC_KEY === "TEMPEL_PUBLIC_KEY_ASLI_DI_SINI") {
+      throw new Error("Public Key VAPID belum diisi.");
+    }
+
+    const { data: { session }, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError) throw sessionError;
+    if (!session) {
+      throw new Error("Silakan login terlebih dahulu.");
+    }
+
+    const permission = await Notification.requestPermission();
+
+    if (permission !== "granted") {
+      throw new Error("Izin notifikasi belum diberikan.");
+    }
+
+    const registration = await navigator.serviceWorker.ready;
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = "=".repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding)
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+      const raw = atob(base64);
+      return Uint8Array.from(raw, char => char.charCodeAt(0));
+    }
+
+    let subscription = await registration.pushManager.getSubscription();
+
+    if (!subscription) {
+      subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+      });
+    }
+
+    const subscriptionJson = subscription.toJSON();
+
+    
+const { data: existing, error: lookupError } = await supabaseClient
+  .from("push_subscriptions")
+  .select("user_id")
+  .eq("endpoint", subscription.endpoint)
+  .maybeSingle();
+
+if (lookupError) throw lookupError;
+
+if (existing && existing.user_id !== session.user.id) {
+  throw new Error(
+    "Langganan browser ini sudah terhubung ke akun lain. " +
+    "Silakan hubungi admin sebelum memindahkannya."
+  );
+}
+
+const { error: saveError } = await supabaseClient
+  .from("push_subscriptions")
+  .upsert({
+    user_id: session.user.id,
+    endpoint: subscription.endpoint,
+    subscription: subscriptionJson,
+    updated_at: new Date().toISOString()
+  }, {
+    onConflict: "endpoint"
+  });
+    if (saveError) throw saveError;
+
+    notify("Notifikasi berhasil diaktifkan untuk browser ini.");
+  } catch (error) {
+    console.error("Aktivasi push gagal:", error);
+    notify(error.message || "Gagal mengaktifkan notifikasi.", true);
+  }
+}
+
+$("enable-push").addEventListener("click", enablePushNotifications);
+
 loginChoices();initialize();
 })();
 </script>
