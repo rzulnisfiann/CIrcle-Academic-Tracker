@@ -1,0 +1,12 @@
+
+{
+  "name": "Circle Academic Tracker",
+  "short_name": "Circle",
+  "description": "Pengelola tugas kuliah dan agenda Circle",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f4fd",
+  "theme_color": "#6452c8",
+  "icons": []
+}
