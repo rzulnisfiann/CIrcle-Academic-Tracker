@@ -106,7 +106,8 @@ const supabaseClient=supabaseConfigured?window.supabase.createClient(SUPABASE_UR
 const legacyCourses=["Bioinformatika","Biokimia","Statistika","Sains Data","Biofisika","Data Mining","Teknologi Sekuensing","Sistem Biologi","Biostatistika","Teknologi Omics","Pengantar Simulasi Molekuler"].map((name,i)=>({id:"course-"+(i+1),name}));
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const validTime=v=>!v||/^([01]\d|2[0-3]):[0-5]\d$/.test(v);
+const validTime = v =>
+  !v || /^([01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?$/.test(String(v).trim());
 const dateNumber=s=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(s||""))return NaN;const [y,m,d]=s.split("-").map(Number);const dt=new Date(Date.UTC(y,m-1,d));return dt.getUTCFullYear()===y&&dt.getUTCMonth()===m-1&&dt.getUTCDate()===d?dt.getTime()/86400000:NaN};
 const dateText=s=>Number.isFinite(dateNumber(s))?new Intl.DateTimeFormat("id-ID",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(s+"T12:00:00Z")):"Tanpa tanggal";
 const dateTimeText=(date,time)=>date?dateText(date)+" · "+(validTime(time)&&time?time:"Jam belum ditentukan"):"Tanpa tanggal";
