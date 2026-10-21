@@ -3,388 +3,96 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Circle Academic Tracker</title>
   <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#0f3b59">
+  <meta name="theme-color" content="#0F3B59">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
+:root{--ink:#3E251E;--muted:#526570;--yale:#0F3B59;--steel:#7D929E;--dust:#DBD4CC;--gold:#DBA12C;--coffee:#3E251E;--line:#D8DFE2;--wash:#F3F0EB;--card:#FFFEFC}
+*{box-sizing:border-box}body{font-family:"DM Sans",sans-serif;color:var(--ink);margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.55}:focus-visible{outline:3px solid #DBA12C;outline-offset:3px}
+.shell{min-height:calc(100 * min(var(--vh, 1vh), 1vh));width:100%;background:radial-gradient(circle at 85% 4%,#E4EBEF 0,transparent 37%),#F3F0EB}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 12px 38px #0F3B590D}.btn{border:0;border-radius:13px;padding:11px 17px;font-weight:700;transition:transform .18s,box-shadow .18s}.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px #0F3B5924}.primary{background:#0F3B59;color:white}.soft{background:#E7EDF0;color:#0F3B59}.danger{background:#fff0f1;color:#b63854}
+.field{width:100%;border:1px solid #C5D0D5;border-radius:12px;padding:11px 13px;background:#fff;color:var(--ink)}.field:focus{outline:2px solid #7D929E;border-color:transparent}.label{display:block;font-weight:700;margin-bottom:7px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700;background:#E7EDF0;color:#0F3B59}.chip.ok{background:#e6f7ed;color:#167447}.chip.warn{background:#fff1db;color:#a45a11}.chip.late{background:#ffeaee;color:#b13350}
+.navbtn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:0;border-radius:13px;text-align:left;color:#526570;font-weight:700;background:transparent}.navbtn:hover,.navbtn.active{background:#E7EDF0;color:#0F3B59}.navbtn svg{width:19px;height:19px;flex:none}
+.view{animation:appear .25s ease both}@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.bottom{display:none}.overlay{position:fixed;inset:0;background:#3E251E80;z-index:40;display:grid;place-items:center;padding:20px}.toast{position:fixed;right:18px;bottom:22px;z-index:60;max-width:380px;padding:14px 18px;border-radius:14px;background:#0F3B59;color:white;box-shadow:0 14px 40px #3E251E30}.toast.error{background:#9e3150}.progress{height:9px;background:#DBD4CC;border-radius:100px;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,#7D929E,#0F3B59);border-radius:100px}
+.file-row{border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:8px;overflow-wrap:anywhere}.file-row img{width:80px;height:64px;object-fit:cover;border-radius:8px}
+@media(max-width:900px){.sidebar{display:none}.bottom{display:flex;position:sticky;bottom:0;z-index:20;background:#fff;border-top:1px solid var(--line);overflow-x:auto;padding:7px 4px}.bottom .navbtn{flex:none;width:70px;flex-direction:column;gap:3px;padding:7px 3px;text-align:center;font-size:10px;justify-content:center}.bottom .navbtn svg{width:20px;height:20px}}
+@media(max-width:620px){.appmain{padding:18px 16px 32px!important}.appheader{padding:18px 16px!important}.panel{border-radius:18px}.desktop-title{font-size:24px!important}}
 
-:root{
-  --ink:#3e251e;
-  --muted:#7d929e;
-  --brand:#0f3b59;
-  --line:#d3cbc1;
-  --wash:#dbd4cc;
-}
-
-*{box-sizing:border-box}
-body{
-  font-family:"DM Sans",sans-serif;
-  color:var(--ink);
-  margin:0;
-  background:#dbd4cc;
-}
-
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-button:disabled{cursor:wait;opacity:.55}
-:focus-visible{outline:3px solid #dba12c;outline-offset:3px}
-
-.shell{
-  min-height:calc(100 * min(var(--vh, 1vh), 1vh));
-  width:100%;
-  background:radial-gradient(circle at 85% 4%,#e8e1d7 0,transparent 37%),#dbd4cc;
-}
-
-.panel{
-  background:#fbf9f5;
-  border:1px solid var(--line);
-  border-radius:24px;
-  box-shadow:0 12px 38px #3e251e12;
-}
-
-.btn{
-  border:0;
-  border-radius:13px;
-  padding:11px 17px;
-  font-weight:700;
-  transition:transform .18s,box-shadow .18s;
-}
-
-.btn:hover:not(:disabled){
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px #0f3b5924;
-}
-
-.primary{background:#0f3b59;color:#fff}
-.soft{background:#e8edef;color:#0f3b59}
-.danger{background:#fde8e8;color:#a52f3d}
-
-.field{
-  width:100%;
-  border:1px solid #b8c1c5;
-  border-radius:12px;
-  padding:11px 13px;
-  background:#fbf9f5;
-  color:var(--ink);
-}
-
-.field:focus{
-  outline:2px solid #7d929e;
-  border-color:transparent;
-}
-
-.label{
-  display:block;
-  font-weight:700;
-  margin-bottom:7px;
-  font-size:14px;
-}
-
-.chip{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  border-radius:999px;
-  padding:5px 10px;
-  font-size:12px;
-  font-weight:700;
-  background:#e8edef;
-  color:#0f3b59;
-}
-
-.chip.ok{background:#e3f3e9;color:#176b45}
-.chip.warn{background:#fff0d2;color:#78500a}
-.chip.late{background:#fde8e8;color:#a52f3d}
-
-.navbtn{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-  padding:12px 14px;
-  border:0;
-  border-radius:13px;
-  text-align:left;
-  color:#52636c;
-  font-weight:700;
-  background:transparent;
-}
-
-.navbtn:hover,.navbtn.active{
-  background:#0f3b59;
-  color:#fff;
-}
-
-.navbtn svg{width:19px;height:19px;flex:none}
-
-.view{animation:appear .25s ease both}
-
-@keyframes appear{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-.bottom{display:none}
-
-.overlay{
-  position:fixed;
-  inset:0;
-  background:#0f3b5983;
-  z-index:40;
-  display:grid;
-  place-items:center;
-  padding:20px;
-}
-
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:22px;
-  z-index:60;
-  max-width:380px;
-  padding:14px 18px;
-  border-radius:14px;
-  background:#0f3b59;
-  color:white;
-  box-shadow:0 14px 40px #0f3b5944;
-}
-
-.toast.error{background:#8f293b}
-
-.progress{
-  height:9px;
-  background:#e4ded6;
-  border-radius:100px;
-  overflow:hidden;
-}
-
-.progress>div{
-  height:100%;
-  background:linear-gradient(90deg,#dba12c,#9a6d13);
-  border-radius:100px;
-}
-
-.file-row{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:10px;
-  margin-top:8px;
-  overflow-wrap:anywhere;
-}
-
-.file-row img{
-  width:80px;
-  height:64px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-@media(max-width:900px){
-  .sidebar{display:none}
-  .bottom{
-    display:flex;
-    position:sticky;
-    bottom:0;
-    z-index:20;
-    background:#fbf9f5;
-    border-top:1px solid var(--line);
-    overflow-x:auto;
-    padding:7px 4px;
-  }
-  .bottom .navbtn{
-    flex:none;
-    width:70px;
-    flex-direction:column;
-    gap:3px;
-    padding:7px 3px;
-    text-align:center;
-    font-size:10px;
-    justify-content:center;
-  }
-  .bottom .navbtn svg{width:20px;height:20px}
-}
-
-@media(max-width:620px){
-  .appmain{padding:18px 16px 32px!important}
-  .appheader{padding:18px 16px!important}
-  .panel{border-radius:18px}
-  .desktop-title{font-size:24px!important}
-}
-
-/* Circle Academic Tracker — visual system */
-:root {
-  --brand: #0F3B59;
-  --brand-deep: #092C43;
-  --brand-soft: #E8EFF2;
-  --steel: #7D929E;
-  --steel-deep: #52636C;
-  --dust: #DBD4CC;
-  --gold: #DBA12C;
-  --gold-deep: #80580D;
-  --coffee: #3E251E;
-  --paper: #FBF9F5;
-  --paper-strong: #FFFDF9;
-  --line: #D3CBC1;
-  --success-bg: #E3F3E9;
-  --success-text: #176B45;
-  --warning-bg: #FFF0D2;
-  --warning-text: #78500A;
-  --danger-bg: #FDE8E8;
-  --danger-text: #8F293B;
-}
-html { color-scheme: light; scroll-behavior: smooth; }
-body { color: var(--coffee); background: var(--dust) !important; }
-.shell {
-  background:
-    radial-gradient(ellipse at 88% 0%, rgba(125,146,158,.20), transparent 34%),
-    linear-gradient(145deg, #E7E0D7 0%, #DBD4CC 58%, #E7EDEF 100%);
-}
-.panel {
-  background: var(--paper);
-  border-color: var(--line);
-  box-shadow: 0 8px 26px rgba(62,37,30,.07);
-}
-.btn { min-height: 42px; box-shadow: 0 1px 0 rgba(62,37,30,.04); }
-.btn:focus-visible, .navbtn:focus-visible, a:focus-visible,
-input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 3px solid var(--gold) !important;
-  outline-offset: 3px;
-}
-.btn.primary { background: var(--brand); color: #FFFDF9; }
-.btn.primary:hover:not(:disabled) { background: var(--brand-deep); }
-.btn.soft { background: #E8EDEF; color: var(--brand); border: 1px solid #D2DDE1; }
-.btn.soft:hover:not(:disabled) { background: #DCE6EA; }
-.btn.danger { background: var(--danger-bg); color: var(--danger-text); }
-.field {
-  background: var(--paper-strong);
-  border-color: #AEBCC2;
-  color: var(--coffee);
-  min-height: 44px;
-}
-.field::placeholder { color: #687982; opacity: 1; }
-.field:focus { outline: 2px solid var(--steel); border-color: var(--brand); }
-.field:disabled, .field[readonly] { background: #EEE9E2; color: #52636C; }
-.label { color: var(--coffee); }
-.chip { background: #E8EDEF; color: var(--brand); }
-.chip.ok { background: var(--success-bg); color: var(--success-text); }
-.chip.warn { background: var(--warning-bg); color: var(--warning-text); }
-.chip.late { background: var(--danger-bg); color: var(--danger-text); }
-.navbtn { color: #52636C; transition: background .16s ease, color .16s ease; }
-.navbtn:hover { background: #E8EDEF; color: var(--brand); }
-.navbtn.active, .navbtn:hover.active { background: var(--brand); color: #FFFDF9; }
-.navbtn span { color: inherit !important; }
-.progress { background: #E4DED6; }
-.progress > div { background: linear-gradient(90deg, #DBA12C, #E8BE65); }
-.overlay { background: rgba(9,44,67,.68); backdrop-filter: blur(4px); }
-.toast { background: var(--brand); color: #FFFDF9; }
-.toast.error { background: #8F293B; color: #FFFDF9; }
-.file-row { background: #FFFDF9; border-color: var(--line); }
-a { color: var(--brand); text-underline-offset: 3px; }
-a:hover { color: var(--brand-deep); }
-input[type="checkbox"], input[type="radio"] { accent-color: var(--brand); }
-::selection { background: rgba(219,161,44,.32); color: var(--coffee); }
-#login .panel { border-color: rgba(125,146,158,.42); box-shadow: 0 22px 60px rgba(15,59,89,.12); }
-#login .label { font-size: 14px; }
-#login-loading { color: #52636C !important; }
-#application > aside { background: var(--paper) !important; border-color: var(--line) !important; }
-#application header { background: rgba(255,253,249,.96) !important; border-color: var(--line) !important; }
-#application header p, #application main .text-\\[\\#52636c\\] { color: #52636C; }
-#content .border-b, #content .border-t { border-color: #E3DDD5 !important; }
-#content .accent-\\[\\#0f3b59\\] { accent-color: var(--brand); }
-.app-loading-screen {
-  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
-  padding: 24px;
-  background: radial-gradient(ellipse at 80% 15%, rgba(125,146,158,.30), transparent 42%),
-              linear-gradient(145deg, #F3EEE7 0%, #DBD4CC 58%, #E8EFF2 100%);
-  opacity: 1; visibility: visible;
-  transition: opacity .24s ease, visibility .24s ease;
-}
-.app-loading-screen.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.loading-card {
-  width: min(100%, 390px); padding: 34px 26px; text-align: center;
-  background: rgba(255,253,249,.88); border: 1px solid rgba(125,146,158,.35);
-  border-radius: 28px; box-shadow: 0 22px 60px rgba(15,59,89,.13);
-}
-.loading-mark {
-  width: 58px; height: 58px; margin: 0 auto 22px; display: grid; place-items: center;
-  color: #FFFDF9; background: var(--brand); border-radius: 19px;
-  box-shadow: 0 8px 18px rgba(15,59,89,.2);
-}
-.loading-mark svg { width: 28px; height: 28px; }
-.loading-kicker { margin: 0 0 9px; color: var(--brand); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
-.loading-card h1 { margin: 0; color: var(--coffee); font-size: clamp(21px, 5vw, 26px); line-height: 1.2; font-weight: 800; letter-spacing: -.035em; }
-.loading-copy { margin: 12px 0 22px; color: #52636C; font-size: 13px; }
-.loading-track { height: 5px; max-width: 210px; margin: 0 auto; overflow: hidden; background: #E4DED6; border-radius: 99px; }
-.loading-track span { display: block; width: 38%; height: 100%; border-radius: inherit; background: var(--gold); animation: loading-sweep 1.25s ease-in-out infinite; }
-@keyframes loading-sweep { 0% { transform: translateX(-110%); } 100% { transform: translateX(370%); } }
-@media (max-width: 620px) {
-  .loading-card { padding: 30px 20px; border-radius: 24px; }
-  .btn { padding: 10px 13px; }
-  #application header { align-items: flex-start; flex-wrap: wrap; }
-  #application header > div:last-child { width: 100%; justify-content: flex-start; }
-  .bottom { padding-bottom: max(7px, env(safe-area-inset-bottom)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-}
-
+/* Circle Academic Tracker — accessible warm Yale Blue theme */
+:root{color-scheme:light;--ink:#3E251E;--muted:#526570;--yale:#0F3B59;--steel:#7D929E;--dust:#DBD4CC;--gold:#DBA12C;--coffee:#3E251E;--line:#D8DFE2;--wash:#F3F0EB;--card:#FFFEFC}
+html{background:#F3F0EB}body{background:#F3F0EB!important;color:#3E251E;line-height:1.5}
+.shell{background:radial-gradient(circle at 88% 3%,#E4EBEF 0,transparent 36%),linear-gradient(135deg,#F3F0EB,#EDE9E2 100%)}
+.panel{background:#FFFEFC;border-color:#D8DFE2;box-shadow:0 10px 30px rgba(15,59,89,.08)}
+.btn{border-radius:12px;transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease}
+.btn:hover:not(:disabled){box-shadow:0 7px 18px rgba(15,59,89,.17)}
+.primary{background:#0F3B59!important;color:#FFFEFC!important}.primary:hover:not(:disabled){background:#174D70!important}
+.soft{background:#E7EDF0!important;color:#0F3B59!important}.soft:hover:not(:disabled){background:#D8E3E8!important}
+.danger{background:#FCEBEC!important;color:#9F293B!important}
+.field{background:#FFFEFC!important;color:#3E251E!important;border-color:#B9C7CE!important}
+.field::placeholder{color:#687D87!important;opacity:1}.field:focus{outline:3px solid rgba(219,161,44,.55)!important;border-color:#0F3B59!important}
+.label{color:#3E251E}.chip{background:#E7EDF0!important;color:#0F3B59!important}.chip.ok{background:#E6F5EC!important;color:#17663D!important}.chip.warn{background:#FFF2D8!important;color:#754600!important}.chip.late{background:#FCE8EB!important;color:#9F293B!important}
+.navbtn{color:#526570!important}.navbtn:hover,.navbtn.active{background:#E7EDF0!important;color:#0F3B59!important}.navbtn.active{box-shadow:inset 3px 0 #DBA12C}
+.progress{background:#DBD4CC!important}.progress>div{background:linear-gradient(90deg,#DBA12C,#0F3B59)!important}
+.bottom{background:#FFFEFC!important;border-color:#D8DFE2!important}.overlay{background:rgba(20,39,49,.62)!important}.toast{background:#0F3B59!important;color:#FFFEFC!important}.toast.error{background:#9F293B!important}
+.file-row{background:#FFFEFC;border-color:#D8DFE2}.file-row a{color:#0F3B59!important}
+input[type=checkbox]{accent-color:#0F3B59}
+:focus-visible{outline:3px solid #DBA12C!important;outline-offset:3px}
+#login{position:relative;isolation:isolate}#login:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 20% 20%,rgba(219,212,204,.65),transparent 48%),radial-gradient(ellipse at 85% 80%,rgba(125,146,158,.20),transparent 42%)}
+#login [data-template-id="login-panel"]{border:1px solid rgba(125,146,158,.35);box-shadow:0 22px 65px rgba(15,59,89,.12)}
+#login-loading{color:#526570!important}#auth-submit{min-height:46px}
+@media(max-width:900px){.bottom{box-shadow:0 -5px 18px rgba(15,59,89,.06);padding-bottom:max(7px,env(safe-area-inset-bottom))}.bottom .navbtn.active{box-shadow:inset 0 3px #DBA12C}}
+@media(max-width:620px){#login{padding:18px!important}.appheader{align-items:flex-start;flex-wrap:wrap}.appheader>div:last-child{justify-content:flex-start}.btn{max-width:100%}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
  </head>
- <body data-template-id="__page-root" class="w-full" style="background: rgb(219, 212, 204);">
-  <div id="app-loading-screen" class="app-loading-screen" role="status" aria-live="polite" aria-label="Memuat Circle Academic Tracker">
-    <div class="loading-card">
-      <div class="loading-mark"><i data-lucide="orbit"></i></div>
-      <p class="loading-kicker">STAY ORGANIZED, GROW TOGETHER</p>
-      <h1>Circle Academic Tracker</h1>
-      <p class="loading-copy">Menyiapkan ruang belajar bersama…</p>
-      <div class="loading-track" aria-hidden="true"><span></span></div>
-    </div>
-  </div>
+ <body data-template-id="__page-root" class="w-full" style="background: rgb(243, 240, 235);">
   <div class="shell">
    <section id="login" class="w-full min-h-screen flex items-center justify-center p-5">
-    <div data-template-id="login-panel" class="canva-panel panel w-full max-w-lg p-7 sm:p-10" style="background: rgb(251, 249, 245);">
-     <div class="w-12 h-12 rounded-2xl bg-[#0f3b59] text-white grid place-items-center mb-7">
+    <div data-template-id="login-panel" class="canva-panel panel w-full max-w-lg p-7 sm:p-10" style="background: rgb(255, 255, 255);">
+     <div class="w-12 h-12 rounded-2xl bg-[#0F3B59] text-white grid place-items-center mb-7">
       <i data-lucide="orbit"></i>
      </div>
      <p data-template-id="login-eyebrow" class="canva-text font-bold uppercase tracking-widest mb-3" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 12px;">SELAMAT DATANG KENTUTT</p>
      <h1 data-template-id="login-title" class="canva-text font-extrabold leading-tight mb-2" style="color: rgb(62, 37, 30); font-weight: 800; font-style: normal; font-size: 30px;">Circle Academic Tracker</h1>
-     <p data-template-id="tagline" class="canva-text mb-8" style="color: rgb(82, 99, 108); font-weight: 400; font-style: normal; font-size: 15px;">Stay Organized, Grow Together.</p>
+     <p data-template-id="tagline" class="canva-text mb-8" style="color: rgb(82, 101, 112); font-weight: 400; font-style: normal; font-size: 15px;">Stay Organized, Grow Together.</p>
      <h2 data-template-id="choose-heading" class="canva-text font-bold mb-3" style="color: rgb(62, 37, 30); font-weight: 700; font-style: normal; font-size: 23px;">Dengan Siapa nih?</h2>
      <form id="auth-form" class="space-y-4">
       <div><label class="label" for="auth-email">Email</label><input id="auth-email" class="field" type="email" autocomplete="username" required placeholder="nama@email.com"></div>
       <div><label class="label" for="auth-password">Password</label><input id="auth-password" class="field" type="password" autocomplete="current-password" required placeholder="Password"></div>
       <button id="auth-submit" type="submit" class="btn primary w-full">Masuk</button>
      </form>
-     <p data-template-id="identity-note" class="canva-text mt-5 leading-relaxed" style="color: rgb(82, 99, 108); font-weight: 400; font-style: normal; font-size: 13px;">Pake akun yang bener yeee</p>
-     <p id="login-loading" class="mt-4 text-sm text-[#52636c]" role="status">Menyiapkan koneksi…</p><button id="login-retry" type="button" class="btn soft mt-3 hidden">Coba lagi</button>
+     <p data-template-id="identity-note" class="canva-text mt-5 leading-relaxed" style="color: rgb(82, 101, 112); font-weight: 400; font-style: normal; font-size: 13px;">Pake akun yang bener yeee</p>
+     <p id="login-loading" class="mt-4 text-sm text-[#526570]" role="status">Menyiapkan koneksi…</p><button id="login-retry" type="button" class="btn soft mt-3 hidden">Coba lagi</button>
     </div>
    </section>
    <div id="application" class="hidden w-full min-h-screen flex">
-    <aside data-template-id="sidebar" class="canva-sidebar sidebar w-[258px] shrink-0 bg-white border-r border-[#d8d2ca] p-5" style="background: rgb(251, 249, 245);">
+    <aside data-template-id="sidebar" class="canva-sidebar sidebar w-[258px] shrink-0 bg-white border-r border-[#D8DFE2] p-5" style="background: rgb(255, 255, 255);">
      <div class="flex items-center gap-3 px-2 pt-3 pb-10">
-      <div class="w-10 h-10 rounded-xl bg-[#0f3b59] text-white grid place-items-center">
+      <div class="w-10 h-10 rounded-xl bg-[#0F3B59] text-white grid place-items-center">
        <i data-lucide="orbit"></i>
       </div>
       <div>
        <p data-template-id="brand" class="canva-text font-extrabold leading-tight" style="color: rgb(62, 37, 30); font-weight: 800; font-style: normal; font-size: 17px;">CIRCLE</p>
-       <p data-template-id="brand-sub" class="canva-text" style="color: rgb(82, 99, 108); font-weight: 400; font-style: normal; font-size: 12px;">Academic Tracker</p>
+       <p data-template-id="brand-sub" class="canva-text" style="color: rgb(82, 101, 112); font-weight: 400; font-style: normal; font-size: 12px;">Academic Tracker</p>
       </div>
      </div>
      <nav class="space-y-1" aria-label="Navigasi utama"><button type="button" class="navbtn" data-view="dashboard"><i data-lucide="layout-dashboard"></i><span data-template-id="nav-dashboard" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Dashboard</span></button> <button type="button" class="navbtn" data-view="task-form"><i data-lucide="square-pen"></i><span data-template-id="nav-input" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Input Tugas</span></button> <button type="button" class="navbtn" data-view="courses"><i data-lucide="book-open"></i><span data-template-id="nav-courses" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Tugas per Mata Kuliah</span></button> <button type="button" class="navbtn" data-view="agenda"><i data-lucide="calendar-days"></i><span data-template-id="nav-agenda" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Input Agenda</span></button> <button type="button" class="navbtn" data-view="nearest"><i data-lucide="clock-3"></i><span data-template-id="nav-nearest" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Tugas Terdekat</span></button> <button type="button" class="navbtn" data-view="guide"><i data-lucide="circle-help"></i><span data-template-id="nav-guide" class="canva-text" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 15px;">Cara Pakai</span></button>
      </nav>
-     <div class="mt-12 rounded-2xl bg-[#e9e3db] p-4 text-sm text-[#0f3b59]">
+     <div class="mt-12 rounded-2xl bg-[#E7EDF0] p-4 text-sm text-[#0F3B59]">
       Satu lingkaran, satu langkah maju.
      </div>
     </aside>
     <div class="flex-1 min-w-0 flex flex-col">
-     <header data-template-id="app-header" class="canva-header appheader bg-white border-b border-[#d8d2ca] px-9 py-5 flex items-center justify-between gap-3" style="background: rgb(251, 249, 245);">
+     <header data-template-id="app-header" class="canva-header appheader bg-white border-b border-[#D8DFE2] px-9 py-5 flex items-center justify-between gap-3" style="background: rgb(255, 255, 255);">
 
     <div>
       <p data-template-id="header-kicker" class="canva-text font-bold uppercase tracking-widest" style="color: rgb(15, 59, 89); font-weight: 700; font-style: normal; font-size: 11px;">CIRCLE ACADEMIC TRACKER</p>
       <p id="header-view" class="font-extrabold text-lg"></p>
-      <p id="active-member" class="text-sm text-[#52636c]"></p>
+      <p id="active-member" class="text-sm text-[#526570]"></p>
     </div>
 
       <div class="flex items-center gap-2 flex-wrap justify-end">
@@ -441,7 +149,7 @@ let fileDraft=[],fileSession=new Map();
 const pending=new Map();let chain=Promise.resolve(),lastWrite=0;
 function notify(text,error=false){clearTimeout(toastTimer);$("toast-root").innerHTML=`<div class="toast ${error?"error":""}" role="status">${esc(text)}</div>`;toastTimer=setTimeout(()=>$("toast-root").replaceChildren(),5500)}
 function iconButton(label,attr,value,cls="soft"){return `<button type="button" class="btn ${cls} text-sm" ${attr}="${esc(value)}">${label}</button>`}
-function empty(title,detail,action="",target=""){return `<div class="panel p-8 text-center"><div class="mx-auto mb-4 w-12 h-12 bg-[#e9e3db] text-[#0f3b59] rounded-2xl grid place-items-center"><i data-lucide="inbox"></i></div><h3 class="font-extrabold text-lg">${esc(title)}</h3><p class="text-[#52636c] mt-2">${esc(detail)}</p>${action?iconButton(esc(action),"data-go",target):""}</div>`}
+function empty(title,detail,action="",target=""){return `<div class="panel p-8 text-center"><div class="mx-auto mb-4 w-12 h-12 bg-[#E7EDF0] text-[#0F3B59] rounded-2xl grid place-items-center"><i data-lucide="inbox"></i></div><h3 class="font-extrabold text-lg">${esc(title)}</h3><p class="text-[#526570] mt-2">${esc(detail)}</p>${action?iconButton(esc(action),"data-go",target):""}</div>`}
 function template(){return {record_type:"",task_id:"",course_id:"",title:"",description:"",link:"",task_type:"",deadline:"",deadline_time:"",submission_place:"",attachment_meta:"",created_by:"",created_at:"",updated_at:"",member_id:"",status:"",group_status:"",agenda_number:0,agenda_description:"",agenda_date:"",agenda_time:"",agenda_status:"",assigned_members:""}}
 function overlayRecords(){return records.map(r=>pending.has(r.__backendId)?{...r,...pending.get(r.__backendId)}:r)}
 const tasks=()=>overlayRecords().filter(r=>r.record_type==="task");
@@ -491,17 +199,17 @@ function dashboard(){
  const active=agendas().filter(a=>a.agenda_status!=="Sudah Terlaksana"&&a.agenda_date>=today()).sort(sortAgenda).slice(0,4);
  const next=all.filter(t=>!done(t)&&t.deadline&&dateNumber(t.deadline)>=dateNumber(today())).sort(sortTasks).slice(0,3);
  const cards=[["Total Tugas",all.length,"layers-3"],["Tugas Saya Belum Selesai",mine,"clock-3"],["Tugas Selesai Semua",finished,"circle-check"],["Tugas Belum Selesai Semua",all.length-finished,"circle-dashed"]];
- return `<div class="view"><div class="flex flex-wrap items-end justify-between gap-4 mb-7"><div><p class="text-[#0f3b59] font-bold mb-1">RUANG KERJA KELOMPOK</p><h1 class="desktop-title text-3xl font-extrabold">Halo, ${esc(memberName(member))}! 👋</h1><p class="text-[#52636c] mt-2">Siap menyelesaikan tugas hari ini?</p></div><div class="flex gap-2">${iconButton("+ Tambah tugas","data-go","task-form","primary")}${iconButton("+ Agenda","data-go","agenda")}</div></div>
- <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-5">${cards.map(([label,n,icon])=>`<article class="panel p-5"><div class="text-[#0f3b59] mb-4"><i data-lucide="${icon}"></i></div><p class="text-[#52636c] text-sm font-semibold">${label}</p><p class="text-3xl font-extrabold mt-1">${n}</p></article>`).join("")}</div>
- <div class="grid lg:grid-cols-[1.35fr_1fr] gap-5"><div class="space-y-5"><section class="panel p-6"><div class="flex justify-between gap-3 mb-4"><h2 class="font-extrabold text-xl">Progress kelompok</h2><strong class="text-[#0f3b59]">${pct}%</strong></div><div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div style="width:${pct}%"></div></div><p class="text-sm text-[#52636c] mt-3">${finished} dari ${all.length} tugas selesai untuk semua penanggung jawab.</p></section>
- <section class="panel p-6"><h2 class="font-extrabold text-xl mb-4">Ringkasan anggota</h2><div class="space-y-3">${members.map(m=>{const assigned=all.filter(t=>assignees(t).includes(m.id)),out=assigned.filter(t=>!memberDone(t,m.id)),group=new Map();out.forEach(t=>group.set(t.course_id,(group.get(t.course_id)||0)+1));return `<div class="rounded-2xl p-4 border ${m.id===member?"border-[#0f3b59] bg-[#edf2f3]":"border-[#e3ddd5]"}"><div class="flex flex-wrap justify-between gap-2"><strong>${esc(m.name)}${m.id===member?' <span class="text-xs text-[#0f3b59]">(Anda)</span>':""}</strong><span class="chip ${out.length?"warn":"ok"}">${!assigned.length?"Belum ada tugas":out.length?"Belum · "+out.length:"Done"}</span></div>${out.length?`<p class="mt-2 text-sm text-[#52636c]">${[...group].map(([id,n])=>`${esc(courseName(id))} (${n})`).join(" · ")}</p>`:""}</div>`}).join("")}</div></section></div>
- <div class="space-y-5"><section class="panel p-6"><div class="flex items-center justify-between gap-3 mb-5"><h2 class="font-extrabold text-xl">Agenda mendatang</h2>${iconButton("Lihat agenda →","data-go","agenda")}</div>${active.length?active.map(a=>`<div class="border-b border-[#e3ddd5] py-4 last:border-0"><span class="chip">Belum Terlaksana</span><p class="font-bold mt-2">${esc(a.agenda_description)}</p><p class="text-sm text-[#52636c]">${esc(dateTimeText(a.agenda_date,a.agenda_time))}</p></div>`).join(""):empty("Belum ada agenda mendatang","Tambahkan agenda grup untuk merencanakan kegiatan.","Tambah agenda","agenda")}</section>
- <section class="panel p-6"><h2 class="font-extrabold text-xl mb-3">Deadline terdekat</h2>${next.length?next.map(t=>`<div class="border-b border-[#e3ddd5] py-3 last:border-0"><strong>${esc(t.title)}</strong><p class="text-sm text-[#52636c]">${esc(courseName(t.course_id))} · ${esc(dateTimeText(t.deadline,t.deadline_time))}</p></div>`).join(""):'<p class="text-[#52636c]">Belum ada deadline mendatang.</p>'}</section></div></div></div>`;
+ return `<div class="view"><div class="flex flex-wrap items-end justify-between gap-4 mb-7"><div><p class="text-[#0F3B59] font-bold mb-1">RUANG KERJA KELOMPOK</p><h1 class="desktop-title text-3xl font-extrabold">Halo, ${esc(memberName(member))}! 👋</h1><p class="text-[#526570] mt-2">Siap menyelesaikan tugas hari ini?</p></div><div class="flex gap-2">${iconButton("+ Tambah tugas","data-go","task-form","primary")}${iconButton("+ Agenda","data-go","agenda")}</div></div>
+ <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-5">${cards.map(([label,n,icon])=>`<article class="panel p-5"><div class="text-[#0F3B59] mb-4"><i data-lucide="${icon}"></i></div><p class="text-[#526570] text-sm font-semibold">${label}</p><p class="text-3xl font-extrabold mt-1">${n}</p></article>`).join("")}</div>
+ <div class="grid lg:grid-cols-[1.35fr_1fr] gap-5"><div class="space-y-5"><section class="panel p-6"><div class="flex justify-between gap-3 mb-4"><h2 class="font-extrabold text-xl">Progress kelompok</h2><strong class="text-[#0F3B59]">${pct}%</strong></div><div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div style="width:${pct}%"></div></div><p class="text-sm text-[#526570] mt-3">${finished} dari ${all.length} tugas selesai untuk semua penanggung jawab.</p></section>
+ <section class="panel p-6"><h2 class="font-extrabold text-xl mb-4">Ringkasan anggota</h2><div class="space-y-3">${members.map(m=>{const assigned=all.filter(t=>assignees(t).includes(m.id)),out=assigned.filter(t=>!memberDone(t,m.id)),group=new Map();out.forEach(t=>group.set(t.course_id,(group.get(t.course_id)||0)+1));return `<div class="rounded-2xl p-4 border ${m.id===member?"border-[#0F3B59] bg-[#EDF2F4]":"border-[#D8DFE2]"}"><div class="flex flex-wrap justify-between gap-2"><strong>${esc(m.name)}${m.id===member?' <span class="text-xs text-[#0F3B59]">(Anda)</span>':""}</strong><span class="chip ${out.length?"warn":"ok"}">${!assigned.length?"Belum ada tugas":out.length?"Belum · "+out.length:"Done"}</span></div>${out.length?`<p class="mt-2 text-sm text-[#526570]">${[...group].map(([id,n])=>`${esc(courseName(id))} (${n})`).join(" · ")}</p>`:""}</div>`}).join("")}</div></section></div>
+ <div class="space-y-5"><section class="panel p-6"><div class="flex items-center justify-between gap-3 mb-5"><h2 class="font-extrabold text-xl">Agenda mendatang</h2>${iconButton("Lihat agenda →","data-go","agenda")}</div>${active.length?active.map(a=>`<div class="border-b border-[#D8DFE2] py-4 last:border-0"><span class="chip">Belum Terlaksana</span><p class="font-bold mt-2">${esc(a.agenda_description)}</p><p class="text-sm text-[#526570]">${esc(dateTimeText(a.agenda_date,a.agenda_time))}</p></div>`).join(""):empty("Belum ada agenda mendatang","Tambahkan agenda grup untuk merencanakan kegiatan.","Tambah agenda","agenda")}</section>
+ <section class="panel p-6"><h2 class="font-extrabold text-xl mb-3">Deadline terdekat</h2>${next.length?next.map(t=>`<div class="border-b border-[#D8DFE2] py-3 last:border-0"><strong>${esc(t.title)}</strong><p class="text-sm text-[#526570]">${esc(courseName(t.course_id))} · ${esc(dateTimeText(t.deadline,t.deadline_time))}</p></div>`).join(""):'<p class="text-[#526570]">Belum ada deadline mendatang.</p>'}</section></div></div></div>`;
 }
 const courseOptions=selected=>`<option value="">Pilih mata kuliah</option>${courses().map(c=>`<option value="${esc(c.id)}" ${c.id===selected?"selected":""}>${esc(c.name)}</option>`).join("")}`;
 function taskForm(){
  const t=editingTask&&tasks().find(x=>x.task_id===editingTask),assigned=t?assignees(t):[member];
- return `<div class="view max-w-4xl"><div class="mb-6"><p class="font-bold text-[#0f3b59]">KELOLA TUGAS</p><h1 class="desktop-title text-3xl font-extrabold mt-1">${t?"Edit tugas":"Tugas baru"}</h1><p class="text-[#52636c] mt-2">Satu tugas, satu catatan yang terhubung ke seluruh rekap.</p></div>
+ return `<div class="view max-w-4xl"><div class="mb-6"><p class="font-bold text-[#0F3B59]">KELOLA TUGAS</p><h1 class="desktop-title text-3xl font-extrabold mt-1">${t?"Edit tugas":"Tugas baru"}</h1><p class="text-[#526570] mt-2">Satu tugas, satu catatan yang terhubung ke seluruh rekap.</p></div>
  <form id="task-form" class="panel p-5 sm:p-8" novalidate><div class="grid sm:grid-cols-2 gap-5">
  <div><label class="label" for="task-course">Mata kuliah *</label><select id="task-course" class="field" required>${courseOptions(t?.course_id)}</select><p id="err-course" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="task-type">Jenis tugas *</label><select id="task-type" class="field"><option value="Individu" ${t?.task_type==="Individu"?"selected":""}>Individu</option><option value="Kelompok" ${t?.task_type==="Kelompok"?"selected":""}>Kelompok</option></select></div>
@@ -511,9 +219,9 @@ function taskForm(){
  <div><label class="label" for="task-deadline">Deadline (opsional)</label><input id="task-deadline" class="field" type="date" value="${esc(t?.deadline||"")}"><p id="err-deadline" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="task-time">Jam Deadline (opsional, 24 jam)</label><input id="task-time" class="field" type="time" step="60" value="${esc(t?.deadline_time||"")}"><p id="err-task-time" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="submission-place">Tempat Pengumpulan (opsional)</label><input id="submission-place" class="field" maxlength="500" placeholder="URL atau instruksi pengumpulan" value="${esc(t?.submission_place||"")}"></div>
- <div class="sm:col-span-2"><label class="label" for="task-files">Lampiran File (opsional)</label><input id="task-files" class="field" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,.doc,.docx,.odt,.txt,.xls,.xlsx,.ppt,.pptx"><p id="err-files" class="text-sm text-red-700 mt-1" role="alert"></p><p class="text-sm text-[#52636c] mt-2">Maksimum 10 MB per file, 5 file per tugas. File disimpan di Supabase Storage privat; akses mengikuti kebijakan Storage dan keanggotaan Circle.</p><div id="file-list" aria-live="polite"></div></div></div>
- <fieldset class="mt-6"><legend class="label">Anggota yang bertanggung jawab *</legend><div class="grid grid-cols-2 sm:grid-cols-5 gap-2">${members.map(m=>`<label class="flex items-center gap-2 rounded-xl border border-[#d8d2ca] p-3 cursor-pointer"><input type="checkbox" name="assignee" value="${m.id}" class="accent-[#0f3b59] w-4 h-4" ${assigned.includes(m.id)?"checked":""}><span>${m.name}</span></label>`).join("")}</div><p id="err-assignee" class="text-sm text-red-700 mt-1"></p></fieldset>
- <div id="initial-status-wrap" class="mt-6"><label class="label" for="task-group-status">Status bersama</label><select id="task-group-status" class="field max-w-sm"><option value="Belum Selesai" ${t?.group_status!=="Done"?"selected":""}>Belum Selesai</option><option value="Done" ${t?.group_status==="Done"?"selected":""}>Done</option></select><p class="text-sm text-[#52636c] mt-2">Satu status berlaku bagi semua anggota yang ditugaskan.</p></div>
+ <div class="sm:col-span-2"><label class="label" for="task-files">Lampiran File (opsional)</label><input id="task-files" class="field" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,.doc,.docx,.odt,.txt,.xls,.xlsx,.ppt,.pptx"><p id="err-files" class="text-sm text-red-700 mt-1" role="alert"></p><p class="text-sm text-[#526570] mt-2">Maksimum 10 MB per file, 5 file per tugas. File disimpan di Supabase Storage privat; akses mengikuti kebijakan Storage dan keanggotaan Circle.</p><div id="file-list" aria-live="polite"></div></div></div>
+ <fieldset class="mt-6"><legend class="label">Anggota yang bertanggung jawab *</legend><div class="grid grid-cols-2 sm:grid-cols-5 gap-2">${members.map(m=>`<label class="flex items-center gap-2 rounded-xl border border-[#D8DFE2] p-3 cursor-pointer"><input type="checkbox" name="assignee" value="${m.id}" class="accent-[#0F3B59] w-4 h-4" ${assigned.includes(m.id)?"checked":""}><span>${m.name}</span></label>`).join("")}</div><p id="err-assignee" class="text-sm text-red-700 mt-1"></p></fieldset>
+ <div id="initial-status-wrap" class="mt-6"><label class="label" for="task-group-status">Status bersama</label><select id="task-group-status" class="field max-w-sm"><option value="Belum Selesai" ${t?.group_status!=="Done"?"selected":""}>Belum Selesai</option><option value="Done" ${t?.group_status==="Done"?"selected":""}>Done</option></select><p class="text-sm text-[#526570] mt-2">Satu status berlaku bagi semua anggota yang ditugaskan.</p></div>
  <div class="flex flex-wrap gap-3 mt-8"><button type="submit" class="btn primary">${t?"Simpan perubahan":"Simpan tugas"}</button>${iconButton("Lihat semua tugas","data-go","courses")}${t?'<button type="button" class="btn soft" data-cancel-task>Batal edit</button>':""}</div></form></div>`;
 }
 function meta(t){try{const x=JSON.parse(t?.attachment_meta||"[]");return Array.isArray(x)?x.filter(f=>f&&typeof f.id==="string"):[]}catch{return []}}
@@ -546,10 +254,10 @@ function attachmentView(t,editing=false){
  const items=editing?fileDraft:meta(t),taskId=t?.task_id||editingTask||"";
  return items.length?items.map(f=>{
   const live=fileSession.get(taskId)?.get(f.id)||f.url||null;
-  const openLink=live?`<a href="${esc(live)}" target="_blank" rel="noopener noreferrer" class="text-[#0f3b59] underline font-bold">Buka file ↗</a>`:f.storagePath?`<a href="#" data-open-attachment="${esc(taskId)}" data-file-id="${esc(f.id)}" class="text-[#0f3b59] underline font-bold">Buka file ↗</a>`:'<p class="text-sm text-[#81520c]">Lampiran lama belum tersimpan di Storage atau tidak memiliki storagePath.</p>';
+  const openLink=live?`<a href="${esc(live)}" target="_blank" rel="noopener noreferrer" class="text-[#0F3B59] underline font-bold">Buka file ↗</a>`:f.storagePath?`<a href="#" data-open-attachment="${esc(taskId)}" data-file-id="${esc(f.id)}" class="text-[#0F3B59] underline font-bold">Buka file ↗</a>`:'<p class="text-sm text-[#a45a11]">Lampiran lama belum tersimpan di Storage atau tidak memiliki storagePath.</p>';
   const preview=live&&String(f.mimeType||"").startsWith("image/")?`<img src="${esc(live)}" alt="Pratinjau ${esc(f.fileName)}">`:f.storagePath&&String(f.mimeType||"").startsWith("image/")?`<img data-storage-preview-task="${esc(taskId)}" data-storage-preview-file="${esc(f.id)}" alt="Pratinjau ${esc(f.fileName)}">`:"";
-  return `<div class="file-row flex items-center justify-between flex-wrap gap-3"><div class="min-w-0"><strong>${esc(f.fileName)}</strong><p class="text-sm text-[#52636c]">${esc(bytes(f.size))} · ${esc(f.mimeType||"Tipe tidak diketahui")}</p>${openLink}</div>${preview}${editing?iconButton("Hapus","data-remove-file",f.id,"danger"):""}</div>`
- }).join(""):"<p class='text-sm text-[#52636c] mt-2'>Belum ada lampiran.</p>";
+  return `<div class="file-row flex items-center justify-between flex-wrap gap-3"><div class="min-w-0"><strong>${esc(f.fileName)}</strong><p class="text-sm text-[#526570]">${esc(bytes(f.size))} · ${esc(f.mimeType||"Tipe tidak diketahui")}</p>${openLink}</div>${preview}${editing?iconButton("Hapus","data-remove-file",f.id,"danger"):""}</div>`
+ }).join(""):"<p class='text-sm text-[#526570] mt-2'>Belum ada lampiran.</p>";
 }
 function renderFiles(){const node=$("file-list");if(node){node.innerHTML=attachmentView({task_id:editingTask},true);hydrateAttachmentPreviews()}}
 function clearDraft(){for(const f of fileDraft)if(f.url&&!fileSession.get(editingTask)?.has(f.id))URL.revokeObjectURL(f.url);fileDraft=[]}
@@ -561,39 +269,39 @@ async function removeStorageObjects(paths){
 function taskCard(t){
  const assigned=assignees(t),isDone=done(t),mine=assigned.includes(member),individual=t.task_type==="Individu",overdue=t.deadline&&!isDone&&dateNumber(t.deadline)<dateNumber(today()),url=safeUrl(t.link);
  const place=safeUrl(t.submission_place);
- return `<article class="panel p-5 sm:p-6" data-task="${esc(t.task_id)}"><div class="flex flex-wrap items-start justify-between gap-3"><div class="min-w-0"><div class="flex flex-wrap gap-2 mb-2"><span class="chip">${esc(t.task_type)}</span><span class="chip ${isDone?"ok":overdue?"late":"warn"}">${isDone?"Selesai semua":overdue?"Terlambat":"Belum selesai semua"}</span></div><h3 class="font-extrabold text-lg break-words">${esc(t.title)}</h3><p class="text-sm text-[#52636c]">${esc(courseName(t.course_id))} · ${esc(t.deadline?dateTimeText(t.deadline,t.deadline_time):"Tanpa deadline")}</p></div><div class="flex gap-2">${iconButton("Edit","data-edit-task",t.task_id)}${iconButton("Hapus","data-delete-task",t.task_id,"danger")}</div></div>
- ${t.description?`<p class="text-[#3e251e] mt-4 whitespace-pre-wrap break-words">${esc(t.description)}</p>`:""}
- ${url?`<a class="inline-block text-[#0f3b59] font-bold underline mt-3 break-all" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Buka link tugas ↗</a>`:t.link?'<p class="text-sm text-[#81520c] mt-3">Link tugas bukan URL lengkap.</p>':""}
- ${t.submission_place?`<p class="mt-3 text-sm"><strong>Tempat Pengumpulan:</strong> ${place?`<a href="${esc(place)}" target="_blank" rel="noopener noreferrer" class="text-[#0f3b59] underline break-all">${esc(t.submission_place)}</a>`:`<span class="whitespace-pre-wrap break-words">${esc(t.submission_place)}</span>`}</p>`:""}
+ return `<article class="panel p-5 sm:p-6" data-task="${esc(t.task_id)}"><div class="flex flex-wrap items-start justify-between gap-3"><div class="min-w-0"><div class="flex flex-wrap gap-2 mb-2"><span class="chip">${esc(t.task_type)}</span><span class="chip ${isDone?"ok":overdue?"late":"warn"}">${isDone?"Selesai semua":overdue?"Terlambat":"Belum selesai semua"}</span></div><h3 class="font-extrabold text-lg break-words">${esc(t.title)}</h3><p class="text-sm text-[#526570]">${esc(courseName(t.course_id))} · ${esc(t.deadline?dateTimeText(t.deadline,t.deadline_time):"Tanpa deadline")}</p></div><div class="flex gap-2">${iconButton("Edit","data-edit-task",t.task_id)}${iconButton("Hapus","data-delete-task",t.task_id,"danger")}</div></div>
+ ${t.description?`<p class="text-[#526570] mt-4 whitespace-pre-wrap break-words">${esc(t.description)}</p>`:""}
+ ${url?`<a class="inline-block text-[#0F3B59] font-bold underline mt-3 break-all" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Buka link tugas ↗</a>`:t.link?'<p class="text-sm text-[#a45a11] mt-3">Link tugas bukan URL lengkap.</p>':""}
+ ${t.submission_place?`<p class="mt-3 text-sm"><strong>Tempat Pengumpulan:</strong> ${place?`<a href="${esc(place)}" target="_blank" rel="noopener noreferrer" class="text-[#0F3B59] underline break-all">${esc(t.submission_place)}</a>`:`<span class="whitespace-pre-wrap break-words">${esc(t.submission_place)}</span>`}</p>`:""}
  ${meta(t).length?`<div class="mt-4"><p class="font-bold text-sm">Lampiran · ${meta(t).length}</p>${attachmentView(t)}</div>`:""}
- <div class="border-t border-[#e3ddd5] mt-5 pt-4"><p class="text-sm font-bold mb-2">${individual?"Status per anggota":"Status bersama"}</p><div class="flex flex-wrap gap-2">${assigned.map(id=>`<span class="chip ${memberDone(t,id)?"ok":"warn"} ${id===member?"ring-2 ring-[#0f3b59]":""}">${esc(memberName(id))}: ${memberDone(t,id)?"Done":"Belum"}</span>`).join("")||'<span class="text-sm text-[#81520c]">Belum ada penanggung jawab</span>'}</div>
- ${mine?`<div class="mt-4 flex items-center gap-3 flex-wrap"><span class="text-sm font-bold">${individual?"Status saya:":"Ubah status bersama:"}</span>${iconButton(memberDone(t,member)?"Tandai belum selesai":"Tandai selesai","data-toggle-task",t.task_id,memberDone(t,member)?"soft":"primary")}</div>`:"<p class='text-sm text-[#52636c] mt-3'>Anda tidak ditugaskan pada tugas ini.</p>"}</div></article>`;
+ <div class="border-t border-[#D8DFE2] mt-5 pt-4"><p class="text-sm font-bold mb-2">${individual?"Status per anggota":"Status bersama"}</p><div class="flex flex-wrap gap-2">${assigned.map(id=>`<span class="chip ${memberDone(t,id)?"ok":"warn"} ${id===member?"ring-2 ring-[#0F3B59]":""}">${esc(memberName(id))}: ${memberDone(t,id)?"Done":"Belum"}</span>`).join("")||'<span class="text-sm text-[#a45a11]">Belum ada penanggung jawab</span>'}</div>
+ ${mine?`<div class="mt-4 flex items-center gap-3 flex-wrap"><span class="text-sm font-bold">${individual?"Status saya:":"Ubah status bersama:"}</span>${iconButton(memberDone(t,member)?"Tandai belum selesai":"Tandai selesai","data-toggle-task",t.task_id,memberDone(t,member)?"soft":"primary")}</div>`:"<p class='text-sm text-[#526570] mt-3'>Anda tidak ditugaskan pada tugas ini.</p>"}</div></article>`;
 }
 function courseView(){
  const catalog=courses();
- if(!selectedCourse)return `<div class="view"><div class="flex flex-wrap items-end justify-between gap-4 mb-7"><div><h1 class="desktop-title text-3xl font-extrabold mb-2">Tugas per Mata Kuliah</h1><p class="text-[#52636c]">Pilih mata kuliah untuk melihat dan mengelola tugas.</p></div><button type="button" class="btn primary" data-add-course>+ Tambah Mata Kuliah</button></div>${catalog.length?`<div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">${catalog.map(c=>{const arr=tasks().filter(t=>t.course_id===c.id),n=arr.filter(done).length,pct=arr.length?Math.round(n/arr.length*100):0;return `<article class="panel p-5"><button type="button" data-course="${esc(c.id)}" class="w-full text-left"><span class="text-[#0f3b59]"><i data-lucide="book-open"></i></span><h2 class="font-extrabold text-lg mt-4 min-h-[52px]">${esc(c.name)}</h2><p class="text-sm text-[#52636c] mt-2">${arr.length} tugas · ${n} selesai</p><div class="progress mt-4"><div style="width:${pct}%"></div></div><p class="text-sm font-bold text-[#0f3b59] mt-2">${pct}% selesai →</p></button><div class="flex gap-2 mt-4">${iconButton("Edit","data-edit-course",c.id)}${iconButton("Hapus","data-delete-course",c.id,"danger")}</div></article>`}).join("")}</div>`:empty("Belum ada mata kuliah","Tambahkan mata kuliah untuk mulai mencatat tugas.")}</div>`;
+ if(!selectedCourse)return `<div class="view"><div class="flex flex-wrap items-end justify-between gap-4 mb-7"><div><h1 class="desktop-title text-3xl font-extrabold mb-2">Tugas per Mata Kuliah</h1><p class="text-[#526570]">Pilih mata kuliah untuk melihat dan mengelola tugas.</p></div><button type="button" class="btn primary" data-add-course>+ Tambah Mata Kuliah</button></div>${catalog.length?`<div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">${catalog.map(c=>{const arr=tasks().filter(t=>t.course_id===c.id),n=arr.filter(done).length,pct=arr.length?Math.round(n/arr.length*100):0;return `<article class="panel p-5"><button type="button" data-course="${esc(c.id)}" class="w-full text-left"><span class="text-[#0F3B59]"><i data-lucide="book-open"></i></span><h2 class="font-extrabold text-lg mt-4 min-h-[52px]">${esc(c.name)}</h2><p class="text-sm text-[#526570] mt-2">${arr.length} tugas · ${n} selesai</p><div class="progress mt-4"><div style="width:${pct}%"></div></div><p class="text-sm font-bold text-[#0F3B59] mt-2">${pct}% selesai →</p></button><div class="flex gap-2 mt-4">${iconButton("Edit","data-edit-course",c.id)}${iconButton("Hapus","data-delete-course",c.id,"danger")}</div></article>`}).join("")}</div>`:empty("Belum ada mata kuliah","Tambahkan mata kuliah untuk mulai mencatat tugas.")}</div>`;
  const list=tasks().filter(t=>t.course_id===selectedCourse).filter(t=>taskFilter==="all"||taskFilter==="pending"&&!done(t)||taskFilter==="done"&&done(t)||taskFilter===t.task_type).sort(sortTasks);
- return `<div class="view"><button type="button" class="text-[#0f3b59] font-bold mb-5" data-back-courses>← Semua mata kuliah</button><div class="flex flex-wrap justify-between gap-3 items-end mb-6"><div><h1 class="desktop-title text-3xl font-extrabold">${esc(courseName(selectedCourse))}</h1><p class="text-[#52636c] mt-2">Status tugas dan penanggung jawab dalam satu tempat.</p></div>${iconButton("+ Tambah tugas","data-go","task-form","primary")}</div><div class="flex flex-wrap gap-2 mb-5">${[["all","Semua"],["pending","Belum selesai"],["done","Selesai"],["Individu","Individu"],["Kelompok","Kelompok"]].map(([key,label])=>iconButton(label,"data-task-filter",key,taskFilter===key?"primary":"soft")).join("")}</div><div class="space-y-4">${list.length?list.map(taskCard).join(""):empty("Tidak ada tugas pada pilihan ini",taskFilter==="all"?"Mata kuliah ini belum memiliki tugas.":"Coba filter lain atau tambahkan tugas baru.","Tambah tugas","task-form")}</div></div>`;
+ return `<div class="view"><button type="button" class="text-[#0F3B59] font-bold mb-5" data-back-courses>← Semua mata kuliah</button><div class="flex flex-wrap justify-between gap-3 items-end mb-6"><div><h1 class="desktop-title text-3xl font-extrabold">${esc(courseName(selectedCourse))}</h1><p class="text-[#526570] mt-2">Status tugas dan penanggung jawab dalam satu tempat.</p></div>${iconButton("+ Tambah tugas","data-go","task-form","primary")}</div><div class="flex flex-wrap gap-2 mb-5">${[["all","Semua"],["pending","Belum selesai"],["done","Selesai"],["Individu","Individu"],["Kelompok","Kelompok"]].map(([key,label])=>iconButton(label,"data-task-filter",key,taskFilter===key?"primary":"soft")).join("")}</div><div class="space-y-4">${list.length?list.map(taskCard).join(""):empty("Tidak ada tugas pada pilihan ini",taskFilter==="all"?"Mata kuliah ini belum memiliki tugas.":"Coba filter lain atau tambahkan tugas baru.","Tambah tugas","task-form")}</div></div>`;
 }
 function agendaView(){
  const a=editingAgenda&&agendas().find(x=>x.__backendId===editingAgenda),next=Math.max(0,...agendas().map(x=>Number(x.agenda_number)||0))+1;
  const list=agendas().filter(x=>agendaTab==="active"?x.agenda_status!=="Sudah Terlaksana":x.agenda_status==="Sudah Terlaksana").sort((x,y)=>agendaTab==="active"?sortAgenda(x,y):sortAgenda(y,x));
- return `<div class="view"><h1 class="desktop-title text-3xl font-extrabold">Agenda Grup</h1><p class="text-[#52636c] mt-2 mb-6">Rencanakan kegiatan bersama dan simpan riwayatnya.</p><div class="grid xl:grid-cols-[390px_1fr] gap-5 items-start"><form id="agenda-form" class="panel p-6" novalidate><h2 class="font-extrabold text-xl mb-5">${a?"Edit agenda":"Tambah agenda"}</h2><div class="space-y-4">
- <div><label class="label" for="agenda-number">Nomor agenda (otomatis)</label><input id="agenda-number" class="field bg-[#f5f2ed]" readonly value="${a?.agenda_number||next}"></div>
+ return `<div class="view"><h1 class="desktop-title text-3xl font-extrabold">Agenda Grup</h1><p class="text-[#526570] mt-2 mb-6">Rencanakan kegiatan bersama dan simpan riwayatnya.</p><div class="grid xl:grid-cols-[390px_1fr] gap-5 items-start"><form id="agenda-form" class="panel p-6" novalidate><h2 class="font-extrabold text-xl mb-5">${a?"Edit agenda":"Tambah agenda"}</h2><div class="space-y-4">
+ <div><label class="label" for="agenda-number">Nomor agenda (otomatis)</label><input id="agenda-number" class="field bg-[#F8F6F2]" readonly value="${a?.agenda_number||next}"></div>
  <div><label class="label" for="agenda-description">Keterangan *</label><textarea id="agenda-description" class="field min-h-[95px]" required maxlength="1200">${esc(a?.agenda_description||"")}</textarea><p id="err-agenda-description" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="agenda-date">Tanggal *</label><input id="agenda-date" type="date" class="field" required value="${esc(a?.agenda_date||"")}"><p id="err-agenda-date" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="agenda-time">Jam Agenda (opsional, 24 jam)</label><input id="agenda-time" type="time" step="60" class="field" value="${esc(a?.agenda_time||"")}"><p id="err-agenda-time" class="text-sm text-red-700 mt-1"></p></div>
  <div><label class="label" for="agenda-status">Status</label><select id="agenda-status" class="field"><option value="Belum Terlaksana" ${a?.agenda_status!=="Sudah Terlaksana"?"selected":""}>Belum Terlaksana</option><option value="Sudah Terlaksana" ${a?.agenda_status==="Sudah Terlaksana"?"selected":""}>Sudah Terlaksana</option></select></div></div>
  <div class="flex flex-wrap gap-2 mt-6"><button type="submit" class="btn primary">${a?"Simpan perubahan":"Simpan agenda"}</button>${a?'<button type="button" class="btn soft" data-cancel-agenda>Batal</button>':""}</div></form>
- <section><div class="flex gap-2 mb-4">${iconButton("Aktif","data-agenda-tab","active",agendaTab==="active"?"primary":"soft")}${iconButton("Riwayat","data-agenda-tab","history",agendaTab==="history"?"primary":"soft")}</div><div class="space-y-3">${list.length?list.map(x=>`<article class="panel p-5"><div class="flex justify-between items-start gap-3 flex-wrap"><div><span class="chip ${x.agenda_status==="Sudah Terlaksana"?"ok":""}">#${x.agenda_number} · ${esc(x.agenda_status)}</span><h3 class="font-extrabold mt-3 break-words">${esc(x.agenda_description)}</h3><p class="text-sm text-[#52636c] mt-1">${esc(dateTimeText(x.agenda_date,x.agenda_time))}</p></div><div class="flex gap-2 flex-wrap">${iconButton(x.agenda_status==="Sudah Terlaksana"?"Aktifkan lagi":"Tandai terlaksana","data-toggle-agenda",x.__backendId)}${iconButton("Edit","data-edit-agenda",x.__backendId)}${iconButton("Hapus","data-delete-agenda",x.__backendId,"danger")}</div></div></article>`).join(""):empty(agendaTab==="active"?"Belum ada agenda aktif":"Riwayat masih kosong",agendaTab==="active"?"Isi form untuk membuat agenda pertama.":"Agenda yang sudah terlaksana akan muncul di sini.")}</div></section></div></div>`;
+ <section><div class="flex gap-2 mb-4">${iconButton("Aktif","data-agenda-tab","active",agendaTab==="active"?"primary":"soft")}${iconButton("Riwayat","data-agenda-tab","history",agendaTab==="history"?"primary":"soft")}</div><div class="space-y-3">${list.length?list.map(x=>`<article class="panel p-5"><div class="flex justify-between items-start gap-3 flex-wrap"><div><span class="chip ${x.agenda_status==="Sudah Terlaksana"?"ok":""}">#${x.agenda_number} · ${esc(x.agenda_status)}</span><h3 class="font-extrabold mt-3 break-words">${esc(x.agenda_description)}</h3><p class="text-sm text-[#526570] mt-1">${esc(dateTimeText(x.agenda_date,x.agenda_time))}</p></div><div class="flex gap-2 flex-wrap">${iconButton(x.agenda_status==="Sudah Terlaksana"?"Aktifkan lagi":"Tandai terlaksana","data-toggle-agenda",x.__backendId)}${iconButton("Edit","data-edit-agenda",x.__backendId)}${iconButton("Hapus","data-delete-agenda",x.__backendId,"danger")}</div></div></article>`).join(""):empty(agendaTab==="active"?"Belum ada agenda aktif":"Riwayat masih kosong",agendaTab==="active"?"Isi form untuk membuat agenda pertama.":"Agenda yang sudah terlaksana akan muncul di sini.")}</div></section></div></div>`;
 }
 function nearestView(){
  const n=dateNumber(today());let list=tasks().filter(t=>!done(t)).filter(t=>nearestScope!=="mine"||assignees(t).includes(member)).filter(t=>nearestScope!=="group"||t.task_type==="Kelompok").filter(t=>nearestCourse==="all"||t.course_id===nearestCourse).filter(t=>nearestType==="all"||t.task_type===nearestType);
  const overdue=list.filter(t=>t.deadline&&dateNumber(t.deadline)<n).sort(sortTasks),week=list.filter(t=>t.deadline&&dateNumber(t.deadline)>=n&&dateNumber(t.deadline)<=n+7).sort(sortTasks),later=list.filter(t=>t.deadline&&dateNumber(t.deadline)>n+7).sort(sortTasks),undated=list.filter(t=>!t.deadline).sort(sortTasks);
  const section=(label,arr)=>arr.length?`<section class="mb-7"><h2 class="font-extrabold text-xl mb-3">${label} <span class="chip">${arr.length}</span></h2><div class="space-y-3">${arr.map(taskCard).join("")}</div></section>`:"";
- return `<div class="view"><h1 class="desktop-title text-3xl font-extrabold">Tugas Terdekat</h1><p class="text-[#52636c] mt-2 mb-6">Tugas belum selesai, dihitung dari tanggal hari ini di Jakarta.</p><div class="panel p-4 mb-6 grid sm:grid-cols-3 gap-3"><div><label class="label" for="nearest-scope">Cakupan</label><select id="nearest-scope" class="field"><option value="mine" ${nearestScope==="mine"?"selected":""}>Tugas saya</option><option value="group" ${nearestScope==="group"?"selected":""}>Semua tugas kelompok</option><option value="all" ${nearestScope==="all"?"selected":""}>Semua tugas</option></select></div><div><label class="label" for="nearest-course">Mata kuliah</label><select id="nearest-course" class="field"><option value="all">Semua mata kuliah</option>${courses().map(c=>`<option value="${esc(c.id)}" ${nearestCourse===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div><div><label class="label" for="nearest-type">Jenis</label><select id="nearest-type" class="field"><option value="all">Semua jenis</option><option value="Individu" ${nearestType==="Individu"?"selected":""}>Individu</option><option value="Kelompok" ${nearestType==="Kelompok"?"selected":""}>Kelompok</option></select></div></div>${section("Terlambat",overdue)}${section("Tujuh hari ke depan",week)}${!week.length?section("Berikutnya",later):""}${section("Tanpa deadline",undated)}${!list.length?empty("Tidak ada tugas tertunda","Tidak ada tugas yang cocok dengan filter ini. Coba ubah filter atau tambahkan tugas.","Tambah tugas","task-form"):""}</div>`;
+ return `<div class="view"><h1 class="desktop-title text-3xl font-extrabold">Tugas Terdekat</h1><p class="text-[#526570] mt-2 mb-6">Tugas belum selesai, dihitung dari tanggal hari ini di Jakarta.</p><div class="panel p-4 mb-6 grid sm:grid-cols-3 gap-3"><div><label class="label" for="nearest-scope">Cakupan</label><select id="nearest-scope" class="field"><option value="mine" ${nearestScope==="mine"?"selected":""}>Tugas saya</option><option value="group" ${nearestScope==="group"?"selected":""}>Semua tugas kelompok</option><option value="all" ${nearestScope==="all"?"selected":""}>Semua tugas</option></select></div><div><label class="label" for="nearest-course">Mata kuliah</label><select id="nearest-course" class="field"><option value="all">Semua mata kuliah</option>${courses().map(c=>`<option value="${esc(c.id)}" ${nearestCourse===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select></div><div><label class="label" for="nearest-type">Jenis</label><select id="nearest-type" class="field"><option value="all">Semua jenis</option><option value="Individu" ${nearestType==="Individu"?"selected":""}>Individu</option><option value="Kelompok" ${nearestType==="Kelompok"?"selected":""}>Kelompok</option></select></div></div>${section("Terlambat",overdue)}${section("Tujuh hari ke depan",week)}${!week.length?section("Berikutnya",later):""}${section("Tanpa deadline",undated)}${!list.length?empty("Tidak ada tugas tertunda","Tidak ada tugas yang cocok dengan filter ini. Coba ubah filter atau tambahkan tugas.","Tambah tugas","task-form"):""}</div>`;
 }
-function guideView(){return `<div class="view max-w-4xl"><h1 class="desktop-title text-3xl font-extrabold mb-2">Cara Pakai</h1><p class="text-[#52636c] mb-6">Panduan singkat Circle Academic Tracker.</p><div class="grid sm:grid-cols-2 gap-4">${[["Tambah tugas","Isi mata kuliah, nama tugas, dan pilih anggota. Tanggal, jam, tempat pengumpulan, dan lampiran bersifat opsional."],["Tugas individu","Setiap anggota yang ditugaskan memiliki status sendiri."],["Tugas kelompok","Satu status bersama berlaku bagi seluruh anggota yang ditugaskan."],["Lihat rekap","Dashboard menampilkan progres dan tugas tertunda tiap anggota."],["Agenda grup","Agenda terlaksana berpindah ke tab Riwayat, bukan dihapus."],["Mata kuliah","Semua mata kuliah dapat ditambah, diedit, dan dihapus setelah konfirmasi."]].map(([heading,body],i)=>`<article class="panel p-6"><span class="chip mb-3">0${i+1}</span><h2 class="font-extrabold text-lg">${heading}</h2><p class="text-[#52636c] mt-2 leading-relaxed">${body}</p></article>`).join("")}</div><section class="panel p-6 mt-5"><h2 class="font-extrabold text-xl mb-2">Status penyimpanan</h2><p class="text-[#52636c]">Tugas, agenda, status, mata kuliah, dan metadata lampiran disimpan di Supabase. Isi file disimpan di bucket Storage privat dan dibuka melalui signed URL sementara. Keamanan tetap bergantung pada kebijakan RLS Storage dan Database yang benar; jangan gunakan untuk file sensitif sebelum kebijakan akses diuji.</p></section></div>`}
+function guideView(){return `<div class="view max-w-4xl"><h1 class="desktop-title text-3xl font-extrabold mb-2">Cara Pakai</h1><p class="text-[#526570] mb-6">Panduan singkat Circle Academic Tracker.</p><div class="grid sm:grid-cols-2 gap-4">${[["Tambah tugas","Isi mata kuliah, nama tugas, dan pilih anggota. Tanggal, jam, tempat pengumpulan, dan lampiran bersifat opsional."],["Tugas individu","Setiap anggota yang ditugaskan memiliki status sendiri."],["Tugas kelompok","Satu status bersama berlaku bagi seluruh anggota yang ditugaskan."],["Lihat rekap","Dashboard menampilkan progres dan tugas tertunda tiap anggota."],["Agenda grup","Agenda terlaksana berpindah ke tab Riwayat, bukan dihapus."],["Mata kuliah","Semua mata kuliah dapat ditambah, diedit, dan dihapus setelah konfirmasi."]].map(([heading,body],i)=>`<article class="panel p-6"><span class="chip mb-3">0${i+1}</span><h2 class="font-extrabold text-lg">${heading}</h2><p class="text-[#526570] mt-2 leading-relaxed">${body}</p></article>`).join("")}</div><section class="panel p-6 mt-5"><h2 class="font-extrabold text-xl mb-2">Status penyimpanan</h2><p class="text-[#526570]">Tugas, agenda, status, mata kuliah, dan metadata lampiran disimpan di Supabase. Isi file disimpan di bucket Storage privat dan dibuka melalui signed URL sementara. Keamanan tetap bergantung pada kebijakan RLS Storage dan Database yang benar; jangan gunakan untuk file sensitif sebelum kebijakan akses diuji.</p></section></div>`}
 function setPending(button,on){if(!button)return;button.disabled=on;button.setAttribute("aria-busy",String(on))}
 const capacity=()=>{if(records.length>=999){notify("Batas 999 catatan tercapai.",true);return false}if(records.length>=950)notify(`Penyimpanan mendekati batas: ${records.length}/999 catatan.`);return true};
 function waitFor(predicate,start){if(callbackVersion>start&&predicate(records))return Promise.resolve(true);return new Promise(resolve=>{let timer;const poll=setInterval(()=>{if(callbackVersion>start&&predicate(records)){clearInterval(poll);clearTimeout(timer);resolve(true)}},70);timer=setTimeout(()=>{clearInterval(poll);resolve(false)},4500)})}
@@ -723,7 +431,7 @@ async function saveCourse(e){
 }
 function confirmDeleteCourse(c){
  const count=records.filter(r=>r.record_type==="task"&&r.course_id===c.id).length;
- $("modal-root").innerHTML=`<div class="overlay"><div class="panel p-7 w-full max-w-md" role="dialog" aria-modal="true" aria-labelledby="delete-course-title"><h2 id="delete-course-title" class="font-extrabold text-xl">Hapus ${esc(c.name)}?</h2><p class="text-[#52636c] mt-3">Ada ${count} tugas pada mata kuliah ini. Konfirmasi akan menghapus mata kuliah beserta tugas, penugasan, status individu/kelompok, dan referensi lampiran terkait. Agenda dan tugas mata kuliah lain tidak diubah. Penghapusan beberapa catatan tidak bersifat transaksi; jika gagal, periksa data setelah memuat ulang.</p><p id="course-delete-error" class="text-red-700 text-sm mt-3" role="alert"></p><div class="flex justify-end gap-2 mt-6"><button type="button" class="btn soft" data-cancel-course>Batal</button>${iconButton("Ya, hapus","data-confirm-course",c.id,"danger")}</div></div></div>`;
+ $("modal-root").innerHTML=`<div class="overlay"><div class="panel p-7 w-full max-w-md" role="dialog" aria-modal="true" aria-labelledby="delete-course-title"><h2 id="delete-course-title" class="font-extrabold text-xl">Hapus ${esc(c.name)}?</h2><p class="text-[#526570] mt-3">Ada ${count} tugas pada mata kuliah ini. Konfirmasi akan menghapus mata kuliah beserta tugas, penugasan, status individu/kelompok, dan referensi lampiran terkait. Agenda dan tugas mata kuliah lain tidak diubah. Penghapusan beberapa catatan tidak bersifat transaksi; jika gagal, periksa data setelah memuat ulang.</p><p id="course-delete-error" class="text-red-700 text-sm mt-3" role="alert"></p><div class="flex justify-end gap-2 mt-6"><button type="button" class="btn soft" data-cancel-course>Batal</button>${iconButton("Ya, hapus","data-confirm-course",c.id,"danger")}</div></div></div>`;
  $("modal-root").querySelector("[data-cancel-course]").focus();
 }
 async function deleteCourse(id,button){
@@ -746,7 +454,7 @@ async function deleteCourse(id,button){
  }finally{setPending(button,false)}
 }
 function confirmDelete(record,label){
- $("modal-root").innerHTML=`<div class="overlay" id="confirm-overlay"><div class="panel p-7 w-full max-w-md" role="dialog" aria-modal="true" aria-labelledby="confirm-title"><h2 id="confirm-title" class="font-extrabold text-xl">Hapus ${esc(label)}?</h2><p class="text-[#52636c] mt-3">Perubahan ini tidak dapat dibatalkan.</p><div class="flex justify-end gap-2 mt-6"><button type="button" class="btn soft" id="confirm-cancel">Batal</button><button type="button" class="btn danger" id="confirm-delete">Ya, hapus</button></div></div></div>`;
+ $("modal-root").innerHTML=`<div class="overlay" id="confirm-overlay"><div class="panel p-7 w-full max-w-md" role="dialog" aria-modal="true" aria-labelledby="confirm-title"><h2 id="confirm-title" class="font-extrabold text-xl">Hapus ${esc(label)}?</h2><p class="text-[#526570] mt-3">Perubahan ini tidak dapat dibatalkan.</p><div class="flex justify-end gap-2 mt-6"><button type="button" class="btn soft" id="confirm-cancel">Batal</button><button type="button" class="btn danger" id="confirm-delete">Ya, hapus</button></div></div></div>`;
  $("confirm-cancel").focus();$("confirm-cancel").onclick=()=>$("modal-root").replaceChildren();
  $("confirm-delete").onclick=async e=>{const current=records.find(r=>r.__backendId===record.__backendId);if(!current)return;
  if(await mutate("delete",current,e.currentTarget,rs=>!rs.some(r=>r.__backendId===current.__backendId))){let cleanupOk=true;if(current.record_type==="task"){cleanupOk=await removeStorageObjects(meta(current).map(f=>f.storagePath));const urls=fileSession.get(current.task_id);if(urls)for(const url of urls.values())URL.revokeObjectURL(url);fileSession.delete(current.task_id)}$("modal-root").replaceChildren();render();notify(cleanupOk?"Catatan berhasil dihapus.":"Catatan terhapus, tetapi file Storage belum berhasil dibersihkan. Periksa policy DELETE Storage.",!cleanupOk)}};
@@ -1037,21 +745,6 @@ loginChoices();initialize();
 })();
 </script>
  
-<script>
-  // The visual loading screen only covers initial document readiness; app initialization/auth remains unchanged.
-  const dismissInitialLoading = () => {
-    const screen = document.getElementById("app-loading-screen");
-    if (screen) {
-      screen.classList.add("is-hidden");
-      window.setTimeout(() => screen.remove(), 300);
-    }
-  };
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", dismissInitialLoading, { once: true });
-  } else {
-    dismissInitialLoading();
-  }
-</script>
 <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
