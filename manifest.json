@@ -1,25 +1,23 @@
 
 {
   "name": "Circle Academic Tracker",
-  "short_name": "Circle",
-  "description": "Pengelola tugas kuliah dan agenda Circle",
+  "short_name": "Circle Tasks",
+  "description": "Stay Organized, Grow Together. Pengelola Tugas Bersama.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f4fd",
- 
-"theme_color": "#315780",
-"icons": [
-  {
-    "src": "./icon-192.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "./icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
-
+  "background_color": "#F7F5F1",
+  "theme_color": "#0F3B59",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
