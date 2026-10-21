@@ -44,6 +44,104 @@ input[type=checkbox]{accent-color:#0F3B59}
 @media(max-width:900px){.bottom{box-shadow:0 -5px 18px rgba(15,59,89,.06);padding-bottom:max(7px,env(safe-area-inset-bottom))}.bottom .navbtn.active{box-shadow:inset 0 3px #DBA12C}}
 @media(max-width:620px){#login{padding:18px!important}.appheader{align-items:flex-start;flex-wrap:wrap}.appheader>div:last-child{justify-content:flex-start}.btn{max-width:100%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* CIRCLE ACADEMIC TRACKER — BOLD, WARM, HIGH-CONTRAST REVISION */
+:root{
+ --ink:#3E251E;--muted:#52636C;--yale:#0F3B59;--steel:#7D929E;
+ --dust:#DBD4CC;--gold:#DBA12C;--coffee:#3E251E;
+ --line:#C8D0D2;--wash:#F0EDE7;--card:#F7F5F1;
+}
+html,body{background:#F0EDE7!important;color:#3E251E!important}
+body{line-height:1.55}
+.shell{background:linear-gradient(135deg,#F0EDE7 0%,#E7E2D9 100%)!important}
+/* Main workspace cards: warm white, clear borders and stronger depth */
+.panel{background:#F7F5F1!important;border:1px solid #C8D0D2!important;border-radius:20px;box-shadow:0 9px 24px rgba(15,59,89,.12),0 2px 5px rgba(62,37,30,.06)!important}
+#content .panel{background:#F7F5F1!important}
+#content h1,#content h2,#content h3{color:#3E251E}
+#content h1{font-weight:850;letter-spacing:-.035em}
+#content h2{font-weight:800;letter-spacing:-.02em}
+#content .desktop-title{color:#0F3B59!important;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+#content .text-3xl{line-height:1.15}
+#content .text-3xl.font-extrabold{font-weight:900}
+/* Brand, desktop sidebar and top header */
+.sidebar{background:#0F3B59!important;color:#F7F5F1!important;border-right:0!important;box-shadow:8px 0 26px rgba(15,59,89,.12)}
+.sidebar [data-template-id="brand"],.sidebar [data-template-id="brand-sub"]{color:#F7F5F1!important}
+.sidebar [data-template-id="brand"]{letter-spacing:.12em}
+.sidebar nav .navbtn{color:#E7EDF0!important;background:transparent!important;border:1px solid transparent}
+.sidebar nav .navbtn span,.sidebar nav .navbtn svg{color:#E7EDF0!important}
+.sidebar nav .navbtn:hover{background:#214E68!important;color:#F7F5F1!important}
+.sidebar nav .navbtn:hover span,.sidebar nav .navbtn:hover svg{color:#F7F5F1!important}
+.sidebar nav .navbtn.active{background:#DBA12C!important;color:#3E251E!important;border-color:#F0C66B!important;box-shadow:inset 4px 0 #3E251E,0 5px 14px rgba(0,0,0,.12)!important}
+.sidebar nav .navbtn.active span,.sidebar nav .navbtn.active svg{color:#3E251E!important}
+.sidebar>div.mt-12{background:#214E68!important;color:#F7F5F1!important;border:1px solid #7D929E}
+.appheader{background:#0F3B59!important;color:#F7F5F1!important;border-bottom:4px solid #DBA12C!important;box-shadow:0 7px 20px rgba(15,59,89,.16)}
+.appheader [data-template-id="header-kicker"],.appheader #header-view,.appheader #active-member{color:#F7F5F1!important}
+.appheader #header-view{font-weight:850!important;letter-spacing:-.02em}
+.appheader .soft{background:#F7F5F1!important;color:#0F3B59!important;border:1px solid #DBD4CC!important}
+.appheader .soft:hover{background:#DBD4CC!important}
+.appheader .danger{background:#FCE8E8!important;color:#8F1D2C!important}
+/* Strong, unmistakable button hierarchy */
+.btn{border-radius:12px;font-weight:800;letter-spacing:.005em;box-shadow:0 2px 0 rgba(62,37,30,.08);transition:transform .16s ease,box-shadow .16s ease,background-color .16s ease}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 18px rgba(15,59,89,.18)}
+.btn.primary{background:#DBA12C!important;color:#3E251E!important;border:1px solid #B98215!important;box-shadow:0 3px 0 #9D6D11,0 5px 12px rgba(219,161,44,.2)!important}
+.btn.primary:hover:not(:disabled){background:#E8B84F!important;color:#3E251E!important}
+.btn.soft{background:#E2E8E9!important;color:#0F3B59!important;border:1px solid #AAB9BF!important}
+.btn.soft:hover:not(:disabled){background:#D0DCE0!important}
+.btn.danger{background:#FCE8E8!important;color:#8F1D2C!important;border:1px solid #E9B8BE!important}
+/* Fields and labels */
+.field{background:#FFFEFC!important;color:#3E251E!important;border:1.5px solid #AAB9BF!important;border-radius:11px}
+.field::placeholder{color:#68777D!important;opacity:1}
+.field:focus{outline:3px solid rgba(219,161,44,.38)!important;border-color:#0F3B59!important;box-shadow:0 0 0 2px #DBA12C!important}
+.label{color:#3E251E!important;font-weight:800}
+/* Status badges retain distinct semantic colors */
+.chip{background:#DDE7EB!important;color:#0F3B59!important;border:1px solid #B6C7CF!important}
+.chip.ok{background:#DDF4E5!important;color:#155B35!important;border-color:#9DD6B2!important}
+.chip.warn{background:#FFF0CC!important;color:#754600!important;border-color:#E8C66D!important}
+.chip.late{background:#FCE3E6!important;color:#8F1D2C!important;border-color:#E6A8B0!important}
+/* Gold progress and stronger dashboard figures */
+.progress{height:11px!important;background:#DBD4CC!important;border:1px solid #C4BDB4!important;border-radius:100px!important}
+.progress>div{background:linear-gradient(90deg,#DBA12C 0%,#E8B84F 32%,#0F3B59 100%)!important;box-shadow:0 0 8px rgba(219,161,44,.28)}
+#content .grid.grid-cols-2>article.panel .text-3xl{font-size:2rem!important;font-weight:900!important;color:#0F3B59!important;letter-spacing:-.04em}
+#content .grid.grid-cols-2>article.panel{position:relative;overflow:hidden;border-top:4px solid #DBA12C!important}
+#content .grid.grid-cols-2>article.panel>div:first-child{color:#0F3B59!important}
+#content .grid.grid-cols-2>article.panel>div:first-child svg{stroke-width:2.5}
+/* Deadline, task and agenda cards: visually scanable */
+#content article.panel{transition:transform .18s ease,box-shadow .18s ease}
+#content article.panel:hover{box-shadow:0 13px 28px rgba(15,59,89,.15)!important}
+#content .file-row{background:#F7F5F1!important;border-color:#C8D0D2!important}
+#content a{color:#0F3B59}
+#content input[type=checkbox]{accent-color:#DBA12C}
+/* Mobile navigation stays branded and highly legible */
+.bottom{background:#0F3B59!important;border-top:3px solid #DBA12C!important;box-shadow:0 -8px 22px rgba(15,59,89,.18)!important}
+.bottom .navbtn{color:#E7EDF0!important;background:transparent!important}
+.bottom .navbtn span,.bottom .navbtn svg{color:#E7EDF0!important}
+.bottom .navbtn.active{background:#DBA12C!important;color:#3E251E!important;border-radius:12px;box-shadow:inset 0 -3px #3E251E!important}
+.bottom .navbtn.active span,.bottom .navbtn.active svg{color:#3E251E!important}
+/* Login/loading screen: unmistakable Yale Blue identity */
+#login{background:radial-gradient(ellipse at 12% 10%,#24536D 0%,transparent 38%),radial-gradient(ellipse at 90% 88%,#3E251E 0%,transparent 34%),#0F3B59!important;position:relative;overflow:hidden}
+#login:after{content:"";position:absolute;left:-8rem;bottom:-12rem;width:27rem;height:27rem;border:1px solid rgba(219,161,44,.34);border-radius:50%;box-shadow:0 0 0 24px rgba(219,161,44,.05),0 0 0 52px rgba(219,161,44,.04);pointer-events:none}
+#login [data-template-id="login-panel"]{background:#F7F5F1!important;border:1px solid rgba(247,245,241,.8)!important;border-top:6px solid #DBA12C!important;border-radius:24px!important;box-shadow:0 28px 70px rgba(0,0,0,.3)!important;position:relative;z-index:1}
+#login [data-template-id="login-eyebrow"]{color:#0F3B59!important}
+#login [data-template-id="login-title"]{color:#0F3B59!important;letter-spacing:-.04em}
+#login [data-template-id="tagline"],#login [data-template-id="identity-note"]{color:#52636C!important}
+#login [data-template-id="choose-heading"]{color:#3E251E!important}
+#login [data-template-id="login-panel"]>div:first-child{background:#0F3B59!important;color:#DBA12C!important;box-shadow:0 6px 14px rgba(15,59,89,.22);animation:brandBob 3.2s ease-in-out infinite}
+#login-loading{color:#0F3B59!important;font-weight:800!important;display:flex;align-items:center;gap:9px}
+#login-loading:not(.hidden)::before{content:"";width:9px;height:9px;border-radius:50%;background:#DBA12C;box-shadow:0 0 0 4px rgba(219,161,44,.18);animation:loadingPulse 1.35s ease-in-out infinite;flex:none}
+#auth-submit{min-height:49px;font-size:15px!important}
+@keyframes loadingPulse{0%,100%{transform:scale(.85);opacity:.65}50%{transform:scale(1.12);opacity:1}}
+@keyframes brandBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* Modals and notifications: high contrast without changing their behavior */
+.overlay{background:rgba(15,35,47,.78)!important;backdrop-filter:blur(4px)}
+.overlay .panel{background:#F7F5F1!important;border:1px solid #DBD4CC!important;box-shadow:0 24px 70px rgba(0,0,0,.28)!important}
+.toast{background:#0F3B59!important;color:#F7F5F1!important;border-left:5px solid #DBA12C!important;box-shadow:0 14px 34px rgba(15,59,89,.28)!important}
+.toast.error{background:#8F1D2C!important;color:#fff!important;border-left-color:#DBA12C!important}
+:focus-visible{outline:3px solid #DBA12C!important;outline-offset:3px}
+@media(max-width:900px){.sidebar{display:none}.appheader{border-bottom-width:3px!important}.bottom{padding-bottom:max(8px,env(safe-area-inset-bottom))}.bottom .navbtn{min-width:62px}.appmain{background:transparent}}
+@media(max-width:620px){#login{padding:16px!important}#login [data-template-id="login-panel"]{padding:24px!important;border-radius:20px!important}.appheader{align-items:flex-start;flex-wrap:wrap;gap:12px}.appheader>div:last-child{justify-content:flex-start;width:100%}.appheader .btn{font-size:12px;padding:9px 11px}.panel{border-radius:17px!important}#content .grid.grid-cols-2>article.panel .text-3xl{font-size:1.7rem!important}}
+@media(prefers-reduced-motion:reduce){#login [data-template-id="login-panel"]>div:first-child,#login-loading:not(.hidden)::before{animation:none!important}}
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
