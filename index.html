@@ -142,6 +142,153 @@ body{line-height:1.55}
 @media(max-width:620px){#login{padding:16px!important}#login [data-template-id="login-panel"]{padding:24px!important;border-radius:20px!important}.appheader{align-items:flex-start;flex-wrap:wrap;gap:12px}.appheader>div:last-child{justify-content:flex-start;width:100%}.appheader .btn{font-size:12px;padding:9px 11px}.panel{border-radius:17px!important}#content .grid.grid-cols-2>article.panel .text-3xl{font-size:1.7rem!important}}
 @media(prefers-reduced-motion:reduce){#login [data-template-id="login-panel"]>div:first-child,#login-loading:not(.hidden)::before{animation:none!important}}
 
+/* ===== Circle Orbit Loading ===== */
+.circle-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(
+    circle at 50% 38%,
+    #194D69 0%,
+    transparent 43%
+  ), #0F3B59;
+  color: #F7F5F1;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+.circle-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.circle-loader-content {
+  width: min(100%, 320px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.circle-loader-orbit {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+}
+
+.circle-loader-ring {
+  position: absolute;
+  border: 1px solid #DBA12C;
+  border-radius: 50%;
+}
+
+.circle-loader-ring.ring-one {
+  inset: 8px;
+  opacity: .85;
+}
+
+.circle-loader-ring.ring-two {
+  inset: 20px;
+  opacity: .4;
+  border-style: dashed;
+}
+
+.circle-loader-logo-image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+.circle-loader-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #DBA12C;
+  box-shadow: 0 0 12px #DBA12C90;
+  transform-origin: 5px 56px;
+  animation: circleOrbit 1.8s linear infinite;
+}
+
+.circle-loader-dot.dot-two {
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  background: #F7F5F1;
+  animation-duration: 2.5s;
+  animation-direction: reverse;
+  transform-origin: 3.5px 44px;
+}
+
+.circle-loader-title {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.circle-loader-subtitle {
+  margin: 0;
+  color: #D8E1E6;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.circle-loader-track {
+  width: 180px;
+  height: 5px;
+  margin-top: 5px;
+  border-radius: 99px;
+  background: #496577;
+  overflow: hidden;
+}
+
+.circle-loader-progress {
+  width: 38%;
+  height: 100%;
+  border-radius: 99px;
+  background: #DBA12C;
+  animation: circleProgress 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes circleOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes circleProgress {
+  from { transform: translateX(-15%); }
+  to { transform: translateX(180%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-loader-dot,
+  .circle-loader-progress {
+    animation: none;
+  }
+
+  .circle-loader-progress {
+    width: 65%;
+  }
+
+  .circle-loader {
+    transition: none;
+  }
+}
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
@@ -149,6 +296,23 @@ body{line-height:1.55}
  </head>
  <body data-template-id="__page-root" class="w-full" style="background: rgb(243, 240, 235);">
   <div class="shell">
+    
+  <div id="circle-loader" class="circle-loader" role="status" aria-live="polite">
+    <div class="circle-loader-content">
+      <div class="circle-loader-orbit" aria-hidden="true">
+        <div class="circle-loader-ring ring-one"></div>
+        <div class="circle-loader-ring ring-two"></div>
+        <div class="circle-loader-dot"></div>
+        <div class="circle-loader-dot dot-two"></div>
+        <img src="./icon-512.png" alt="" class="circle-loader-logo-image">
+      </div>
+      <h1 class="circle-loader-title">Circle Academic</h1>
+      <p class="circle-loader-subtitle" id="circle-loader-message">Menyiapkan ruang belajarmu...</p>
+      <div class="circle-loader-track" aria-hidden="true">
+        <div class="circle-loader-progress"></div>
+      </div>
+    </div>
+  </div>
    <section id="login" class="w-full min-h-screen flex items-center justify-center p-5">
     <div data-template-id="login-panel" class="canva-panel panel w-full max-w-lg p-7 sm:p-10" style="background: rgb(255, 255, 255);">
      <div class="w-12 h-12 rounded-2xl bg-[#0F3B59] text-white grid place-items-center mb-7">
@@ -736,17 +900,84 @@ async create(record) {
  async delete(record){try{const id=record.__backendId;if(!id)return {isOk:false};const {data,error}=await supabaseClient.from("circle_records").delete().eq("id",id).select("id");if(error||!data?.length)throw error||new Error("No row deleted");await refreshRows();return {isOk:true}}catch(error){console.error("Supabase delete failed:",error);return {isOk:false}}}
 };
 let localDataHandler=null;
-async function initialize(){
- clearTimeout(loadTimer);$("login-retry").classList.add("hidden");$("login-loading").classList.remove("hidden");loginChoices();
- if(!supabaseConfigured){$("login-loading").textContent="Konfigurasi Supabase belum diisi di file HTML.";return}
- try{
-  const {data:{session},error}=await supabaseClient.auth.getSession();if(error)throw error;
-  if(session){
-   const {data:profile,error:profileError}=await supabaseClient.from("circle_members").select("member_id").eq("user_id",session.user.id).single();
-   if(profileError||!profile?.member_id){await supabaseClient.auth.signOut();throw new Error("Akun ini belum dipasangkan dengan member_id di circle_members.")}
-   await login(profile.member_id);const result=await window.dataSdk.init(handler);if(!result.isOk)throw new Error("Tidak dapat memuat circle_records. Periksa tabel, kebijakan RLS, dan keanggotaan.");
+  
+function showCircleLoading(message = "Menyiapkan ruang belajarmu...") {
+  const loader = document.getElementById("circle-loader");
+  const text = document.getElementById("circle-loader-message");
+
+  if (text) text.textContent = message;
+  if (loader) loader.classList.remove("is-hidden");
+}
+
+function hideCircleLoading() {
+  const loader = document.getElementById("circle-loader");
+  if (loader) loader.classList.add("is-hidden");
+}
+
+async function initialize() {
+  showCircleLoading("Menyiapkan ruang tugasmu...");
+
+  clearTimeout(loadTimer);
+  $("login-retry").classList.add("hidden");
+  $("login-loading").classList.remove("hidden");
+  loginChoices();
+
+  if (!supabaseConfigured) {
+    $("login-loading").textContent =
+      "Konfigurasi Supabase belum diisi di file HTML.";
+    hideCircleLoading();
+    return;
   }
- }catch(error){console.error(error);$("login-loading").textContent=error.message||"Supabase tidak dapat dimulai.";notify($("login-loading").textContent,true)}
+
+  try {
+    showCircleLoading("Memeriksa sesi login...");
+
+    const {
+      data: { session },
+      error
+    } = await supabaseClient.auth.getSession();
+
+    if (error) throw error;
+
+    if (session) {
+      showCircleLoading("Memuat data Circle...");
+
+      const {
+        data: profile,
+        error: profileError
+      } = await supabaseClient
+        .from("circle_members")
+        .select("member_id")
+        .eq("user_id", session.user.id)
+        .single();
+
+      if (profileError || !profile?.member_id) {
+        await supabaseClient.auth.signOut();
+
+        throw new Error(
+          "Akun ini belum dipasangkan dengan member_id di circle_members."
+        );
+      }
+
+      await login(profile.member_id);
+
+      const result = await window.dataSdk.init(handler);
+
+      if (!result.isOk) {
+        throw new Error(
+          "Tidak dapat memuat circle_records. Periksa tabel, kebijakan RLS, dan keanggotaan."
+        );
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    $("login-loading").textContent =
+      error.message || "Supabase tidak dapat dimulai.";
+
+    notify($("login-loading").textContent, true);
+  } finally {
+    hideCircleLoading();
+  }
 }
 $("auth-form").addEventListener("submit",signIn);
 // Pemeriksaan deterministik tanpa menulis atau menghapus data pengguna.
